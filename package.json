@@ -1,0 +1,22 @@
+{
+  "name": "first-one",
+  "version": "1.0.0",
+  "description": "my first initializiation in node",
+  "keywords": [
+    "express"
+  ],
+  "license": "ISC",
+  "author": "aryan",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
