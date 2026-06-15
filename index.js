@@ -2,9 +2,32 @@ import "dotenv/config";
 // require("dotenv").config();
 import express from "express";
 
+import logger from "./logger.js";
+import morgan from "morgan";
+
 const app = express();
-// const port = 3000; //without using environment variable... hardcoded and exposed it
 const port = process.env.PORT; //now using port nummber via .env folder...
+app.use(express.json());
+
+const morganFormat = ":method :url :status :response-time ms";
+
+app.use(
+  morgan(morganFormat, {
+    stream: {
+      write: (message) => {
+        const logObject = {
+          method: message.split(" ")[0],
+          url: message.split(" ")[1],
+          status: message.split(" ")[2],
+          responseTime: message.split(" ")[3],
+        };
+        logger.info(JSON.stringify(logObject));
+      },
+    },
+  }),
+);
+
+// const port = 3000; //without using environment variable... hardcoded and exposed it
 
 // app.get("/", (request, response) => {
 //   response.send(`Hello World...!!`);
@@ -15,8 +38,6 @@ const port = process.env.PORT; //now using port nummber via .env folder...
 // app.get("/adrak", (request, response) => {
 //   response.send(`Shabass chai ya coffee..???  `);
 // });
-
-app.use(express.json());
 
 let randomData = [];
 let nextId = 1;
