@@ -1,7 +1,10 @@
+import "dotenv/config";
+// require("dotenv").config();
 import express from "express";
 
 const app = express();
-const port = 3000;
+// const port = 3000; //without using environment variable... hardcoded and exposed it
+const port = process.env.PORT; //now using port nummber via .env folder...
 
 // app.get("/", (request, response) => {
 //   response.send(`Hello World...!!`);
@@ -33,17 +36,16 @@ app.get("/sahi", (req, res) => {
 
 //get any thing in particular with :id or :superman
 app.get("/sahi/:id", (req, res) => {
-  const thing = randomData.find(t => t.id === parseInt(req.params.id));
+  const thing = randomData.find((t) => t.id === parseInt(req.params.id));
   if (!thing) {
     return res.status(404).send(`Nhai mila....!!!`);
   }
   res.status(200).send(thing);
 });
 
-
 //update any thing in particular with :id or :superman
 app.put("/sahi/:id", (req, res) => {
-  const thing = randomData.find(t => t.id === parseInt(req.params.id));
+  const thing = randomData.find((t) => t.id === parseInt(req.params.id));
   if (!thing) {
     return res.status(404).send(`Nhai mila....!!!`);
   }
@@ -57,15 +59,13 @@ app.put("/sahi/:id", (req, res) => {
 
 //delete thing in particular with :id or :superman
 app.delete("/sahi/:id", (req, res) => {
-  const index = randomData.findIndex(t => t.id === parseInt(req.params.id));
+  const index = randomData.findIndex((t) => t.id === parseInt(req.params.id));
   if (!index === -1) {
     return res.status(404).send(`Nhai mila....!!!`);
   }
-  randomData.splice(index, 1)
+  randomData.splice(index, 1);
   res.status(204).send(`Udd Gaya`);
 });
-
-
 
 app.listen(port, () => {
   console.log(`Server is lisiting to port ${port}.....`);
